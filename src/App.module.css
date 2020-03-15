@@ -1,0 +1,13 @@
+.App {
+    padding-top: 100px;
+    background: linear-gradient(to right, #d3959b, #bfe6ba);
+    height: 300vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.App h1 {
+    color: #8230ff;
+}
+

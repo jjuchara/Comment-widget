@@ -1,0 +1,34 @@
+.Comment {
+    width: 100%;
+    color: #8230ff;
+    padding: 0 20px;
+    margin-bottom: 30px;
+}
+
+.Comment__text {
+    display: inline-block;
+    margin-bottom: 5px;
+    font-size: 1.3rem;
+}
+
+.wrap {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    border-bottom: 1px solid #8230ff;
+    padding-bottom: 5px;
+}
+
+.delete {
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    border-radius: 50%;
+    float: right;
+    background: transparent;
+    border: 1px solid #8230ff;
+    color: #8230ff;
+    outline: none;
+}

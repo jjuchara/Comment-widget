@@ -1,0 +1,25 @@
+.Button {
+    width: 325px;
+    border-radius: 10px;
+    background: #ccc;
+    padding: 10px 0;
+    font-size: 0.8rem;
+    color: #8230ff;
+    outline: none;
+    border: none;
+    box-shadow: 2px 2px 6px 1px rgba(76, 54, 56, 0.81);
+    transition: background .3s;
+}
+
+.Button:hover {
+    background: #bfe6ba;
+    transition: background .3s;
+}
+
+.Button:active {
+    box-shadow: inset 2px 2px 6px 1px #373737;
+}
+
+.Button:disabled {
+    background: #adadad;
+}

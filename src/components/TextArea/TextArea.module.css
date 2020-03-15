@@ -1,0 +1,16 @@
+.TextArea {
+    width: 750px;
+    min-height: 20vh;
+    border-radius: 10px;
+    outline: none;
+    background: #ccc;
+    padding: 20px;
+    font-size: 1.2rem;
+    color: #8230ff;
+    margin-bottom: 10px;
+    box-shadow: 2px 2px 6px 1px rgba(76, 54, 56, 0.81);
+}
+
+.invalid {
+    border: 2px solid red;
+}
