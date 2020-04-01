@@ -1,4 +1,9 @@
-import {ON_INPUT_CHANGE_HANDLER, ON_TEXTAREA_CHANGE_HANDLER} from "./actions/actionTypes";
+import {
+    ON_CLICK_BTN_HANDLER,
+    ON_INPUT_CHANGE_HANDLER,
+    ON_TEXTAREA_CHANGE_HANDLER,
+    RESET_FORM
+} from "./actions/actionTypes";
 
 const initialState = {
     fieldsValid: false,
@@ -42,6 +47,29 @@ export default function rootReducer(state = initialState, action) {
                 comment: action.comment,
                 input: action.input,
                 fieldsValid: action.fieldsValid
+            };
+        case ON_CLICK_BTN_HANDLER:
+            return {
+                ...state,
+                comments: action.comments,
+            };
+        case RESET_FORM:
+            return {
+                ...state,
+                fieldsValid: false,
+                comment: {
+                    commentText: '',
+                    name: '',
+                    date: new Date().toLocaleString()
+                },
+                textArea: {
+                    valid: false,
+                    touched: false,
+                },
+                input: {
+                    valid: false,
+                    touched: false,
+                }
             };
 
         default:

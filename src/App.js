@@ -2,41 +2,19 @@ import React, {Component} from 'react';
 import {connect} from 'react-redux';
 import classes from './App.module.css';
 import CommentsList from "./components/CommentsList/CommentsList";
-import Comment from "./components/CommentsList/Comment/Comment";
 import TextArea from "./components/TextArea/TextArea";
 import Input from "./components/Input/Input";
 import Button from "./components/Button/Button";
-import {onInputChangeHandler, onTextAreaChangeHandler} from "./redux/actions/actions";
+import {onClickBtnHandler, onInputChangeHandler, onTextAreaChangeHandler} from "./redux/actions/actions";
 
 class App extends Component {
 
 
-    onClickBtnHandler = () => {
-
-        const comments = [...this.props.comments];
-        const comment = {...this.props.comment};
-
-        comments.push(comment);
-
-        this.setState({
-            fieldsValid: false,
-            comments,
-            comment: {
-                commentText: '',
-                name: '',
-                date: new Date().toLocaleString()
-            },
-            textArea: {
-                valid: false,
-            },
-            input: {
-                valid: false,
-            }
-
-        });
-        this.addToLocalStorage(comments)
-
-    };
+    // onClickBtnHandler = () => {
+    //Сделать когда все будет перерефакторино добавление в Local storage
+    //     this.addToLocalStorage(comments)
+    //
+    // };
 
     componentDidMount() {
 
@@ -58,38 +36,21 @@ class App extends Component {
 
     };
 
-    renderMessage() {
-        return this.props.comments.map((comment, index) => {
-
-            return (
-                <Comment
-                    key={index}
-                    commentText={comment.commentText}
-                    name={comment.name}
-                    date={comment.date}
-                    onDelete={() => this.onDelete(index)}
-                    id={this.index}
-                />
-            )
-        })
-    }
-
-    validateControl(value, validation) {
-        if (!validation) {
-            return true
-        }
-
-        let isValid = true;
-        if (validation.required) {
-            isValid = value.trim() !== '' && isValid
-        }
-
-        return isValid
-    }
-
-    addToLocalStorage(state) {
-        localStorage.setItem('state', JSON.stringify(state))
-    }
+    // renderMessage() {
+    //     return this.props.comments.map((comment, index) => {
+    //
+    //         return (
+    //             <Comment
+    //                 key={index}
+    //                 commentText={comment.commentText}
+    //                 name={comment.name}
+    //                 date={comment.date}
+    //                 onDelete={() => this.onDelete(index)}
+    //                 id={this.index}
+    //             />
+    //         )
+    //     })
+    // }
 
 
     render() {
@@ -99,7 +60,7 @@ class App extends Component {
                 <h1>Виджет Комментариев</h1>
                 <CommentsList>
                     {
-                        this.renderMessage()
+                        // this.renderMessage()
                     }
                 </CommentsList>
 
@@ -107,7 +68,7 @@ class App extends Component {
                     placeholder='Введите текст сообщения'
                     value={this.props.comment.commentText}
                     onChangeTextArea={this.props.onTextAreaChangeHandler}
-                    valid={this.validateControl(this.props.textArea.valid)}
+                    valid={this.props.textArea.valid}
                     touched={this.props.textArea.touched}
                     errorMessage={this.props.textArea.errorMessage}
                 />
@@ -121,7 +82,7 @@ class App extends Component {
                     errorMessage={this.props.input.errorMessage}
                 />
                 <Button
-                    onClickBtn={this.onClickBtnHandler}
+                    onClickBtn={this.props.onClickBtnHandler}
                     disabled={!this.props.fieldsValid}
                 />
             </div>
@@ -143,7 +104,8 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
     return {
         onTextAreaChangeHandler: (e) => dispatch(onTextAreaChangeHandler(e)),
-        onInputChangeHandler: (e) => dispatch(onInputChangeHandler(e))
+        onInputChangeHandler: (e) => dispatch(onInputChangeHandler(e)),
+        onClickBtnHandler: () => dispatch(onClickBtnHandler()),
     }
 }
 
