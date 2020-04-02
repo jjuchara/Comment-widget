@@ -41,7 +41,7 @@ class App extends Component {
 
         const textArea = {...this.state.textArea};
         textArea.touched = true;
-        textArea.valid = this.validateControl(this.state.comment.commentText, textArea.validation);
+        textArea.valid = this.validateControl(comment.commentText, textArea.validation);
 
         let fieldsValid = false;
 
@@ -58,7 +58,7 @@ class App extends Component {
         comment.name = e.target.value;
         const input = {...this.state.input};
         input.touched = true;
-        input.valid = this.validateControl(this.state.comment.name, input.validation);
+        input.valid = this.validateControl(comment.name, input.validation);
 
         let fieldsValid = false;
 
@@ -88,9 +88,15 @@ class App extends Component {
             },
             textArea: {
                 valid: false,
+                validation: {
+                    required: true
+                }
             },
             input: {
                 valid: false,
+                validation: {
+                    required: true
+                }
             }
 
         });
