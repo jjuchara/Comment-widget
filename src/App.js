@@ -5,62 +5,45 @@ import CommentsList from "./components/CommentsList/CommentsList";
 import TextArea from "./components/TextArea/TextArea";
 import Input from "./components/Input/Input";
 import Button from "./components/Button/Button";
-import {onClickBtnHandler, onInputChangeHandler, onTextAreaChangeHandler} from "./redux/actions/actions";
+import {
+    fetchLocalStorage,
+    onClickBtnHandler,
+    onDelete,
+    onInputChangeHandler,
+    onTextAreaChangeHandler
+} from "./redux/actions/actions";
+import Comment from "./components/CommentsList/Comment/Comment";
 
 class App extends Component {
 
-
-    // onClickBtnHandler = () => {
-    //Сделать когда все будет перерефакторино добавление в Local storage
-    //     this.addToLocalStorage(comments)
-    //
-    // };
-
     componentDidMount() {
 
-        const comments = JSON.parse(localStorage.getItem('state'));
-
-        if (comments) {
-            this.setState({comments})
-        }
-
+        this.props.fetchLocalStorage()
     }
 
-    onDelete = (index) => {
-        const comments = [...this.props.comments];
-        comments.splice(index, 1);
+    renderMessage() {
+        return this.props.comments.map((comment, index) => {
 
-        this.addToLocalStorage(comments);
-
-        this.setState({comments});
-
-    };
-
-    // renderMessage() {
-    //     return this.props.comments.map((comment, index) => {
-    //
-    //         return (
-    //             <Comment
-    //                 key={index}
-    //                 commentText={comment.commentText}
-    //                 name={comment.name}
-    //                 date={comment.date}
-    //                 onDelete={() => this.onDelete(index)}
-    //                 id={this.index}
-    //             />
-    //         )
-    //     })
-    // }
-
+            return (
+                <Comment
+                    key={index}
+                    commentText={comment.commentText}
+                    name={comment.name}
+                    date={comment.date}
+                    onDelete={() => this.props.onDelete(index)}
+                    id={this.index}
+                />
+            )
+        })
+    }
 
     render() {
-        console.log(this.props)
         return (
             <div className={classes.App}>
                 <h1>Виджет Комментариев</h1>
                 <CommentsList>
                     {
-                        // this.renderMessage()
+                        this.renderMessage()
                     }
                 </CommentsList>
 
@@ -103,9 +86,11 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        onTextAreaChangeHandler: (e) => dispatch(onTextAreaChangeHandler(e)),
-        onInputChangeHandler: (e) => dispatch(onInputChangeHandler(e)),
+        onTextAreaChangeHandler: e => dispatch(onTextAreaChangeHandler(e)),
+        onInputChangeHandler: e => dispatch(onInputChangeHandler(e)),
         onClickBtnHandler: () => dispatch(onClickBtnHandler()),
+        onDelete: index => dispatch(onDelete(index)),
+        fetchLocalStorage: () => dispatch(fetchLocalStorage())
     }
 }
 

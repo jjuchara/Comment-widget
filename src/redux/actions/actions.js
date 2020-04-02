@@ -1,5 +1,11 @@
-import {ON_CLICK_BTN_HANDLER, ON_INPUT_CHANGE_HANDLER, ON_TEXTAREA_CHANGE_HANDLER, RESET_FORM} from "./actionTypes";
-
+import {
+    FETCH_LOCAL_STORAGE,
+    ON_CLICK_BTN_HANDLER,
+    ON_DELETE,
+    ON_INPUT_CHANGE_HANDLER,
+    ON_TEXTAREA_CHANGE_HANDLER,
+    RESET_FORM
+} from "./actionTypes";
 
 export function onTextAreaChangeHandler(e) {
 
@@ -78,6 +84,37 @@ export function resetForm() {
     }
 }
 
+export function fetchLocalStorage() {
+
+    return dispatch => {
+        const comments = JSON.parse(localStorage.getItem('state'));
+        if (comments) {
+            dispatch({
+                type: FETCH_LOCAL_STORAGE,
+                comments
+            })
+        }
+    }
+}
+
+export function onDelete(index) {
+    return (dispatch, getState) => {
+
+        const comments = [...getState().comments];
+
+        comments.splice(index, 1);
+
+        addToLocalStorage(comments);
+
+        dispatch({
+            type: ON_DELETE,
+            comments
+        })
+    }
+}
+
+// ********** functions helper *************** \\
+
 function validateControl(value, validation) {
 
     if (!validation) {
@@ -96,4 +133,5 @@ function validateControl(value, validation) {
 function addToLocalStorage(state) {
     localStorage.setItem('state', JSON.stringify(state))
 }
+
 

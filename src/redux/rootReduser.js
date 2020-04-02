@@ -1,5 +1,7 @@
 import {
+    FETCH_LOCAL_STORAGE,
     ON_CLICK_BTN_HANDLER,
+    ON_DELETE,
     ON_INPUT_CHANGE_HANDLER,
     ON_TEXTAREA_CHANGE_HANDLER,
     RESET_FORM
@@ -65,11 +67,27 @@ export default function rootReducer(state = initialState, action) {
                 textArea: {
                     valid: false,
                     touched: false,
+                    validation: {
+                        required: true
+                    }
                 },
                 input: {
                     valid: false,
                     touched: false,
+                    validation: {
+                        required: true
+                    }
                 }
+            };
+        case ON_DELETE:
+            return {
+                ...state,
+                comments: action.comments
+            };
+        case FETCH_LOCAL_STORAGE:
+            return {
+                ...state,
+                comments: action.comments
             };
 
         default:
