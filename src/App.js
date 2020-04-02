@@ -16,99 +16,10 @@ import Comment from "./components/CommentsList/Comment/Comment";
 
 class App extends Component {
 
-    state = {
-        fieldsValid: false,
-        comments: [],
-        comment: {
-            commentText: '',
-            name: '',
-            date: new Date().toLocaleString()
-        },
-        textArea: {
-            errorMessage: 'Поле не должно быть пустым',
-            valid: false,
-            touched: false,
-            validation: {
-                required: true
-            }
-        },
-        input: {
-            errorMessage: 'Поле не должно быть пустым',
-            valid: false,
-            touched: false,
-            validation: {
-                required: true
-            }
-        }
-
-    };
-
-    onTextAreaChangeHandler = e => {
-        const comment = {...this.state.comment};
-        comment.commentText = e.target.value;
-
-        const textArea = {...this.state.textArea};
-        textArea.touched = true;
-        textArea.valid = this.validateControl(this.state.comment.commentText, textArea.validation);
-
-        let fieldsValid = false;
-
-        if (textArea.valid && this.state.input.valid) {
-            fieldsValid = true
-        }
-
-        this.setState({comment, textArea, fieldsValid})
-
-    };
-
-    onInputChangeHandler = e => {
-        const comment = {...this.state.comment};
-        comment.name = e.target.value;
-        const input = {...this.state.input};
-        input.touched = true;
-        input.valid = this.validateControl(this.state.comment.name, input.validation);
-
-        let fieldsValid = false;
-
-        if (input.valid && this.state.textArea.valid) {
-            fieldsValid = true
-        }
-
-
-        this.setState({comment, input, fieldsValid})
-
-    };
-
-    onClickBtnHandler = () => {
-
-        const comments = [...this.state.comments];
-        const comment = {...this.state.comment};
-
-        comments.push(comment);
-
-        this.setState({
-            fieldsValid: false,
-            comments,
-            comment: {
-                commentText: '',
-                name: '',
-                date: new Date().toLocaleString()
-            },
-            textArea: {
-                valid: false,
-            },
-            input: {
-                valid: false,
-            }
-
-        });
-        this.addToLocalStorage(comments)
-
-    };
-
     componentDidMount() {
 
         this.props.fetchLocalStorage()
+
     }
 
     renderMessage() {
@@ -159,7 +70,6 @@ class App extends Component {
                     disabled={!this.props.fieldsValid}
                 />
             </div>
-
         )
     }
 }
